@@ -1,0 +1,62 @@
+<a href="/dashboard" class="log-button refresh"> Refresh</a>
+
+<table id="admin">
+  <tr>
+    <th>Request Id</th>
+    <th>Customer Id</th>
+    <th>Time Elapsed</th>
+    <th>Status</th>
+    <th>Driver</th>
+  </tr>
+  <%@rides.each do |ride| %>
+    <tr>
+      <th><%=ride.external_id%></th>
+      <th><%=ride.customer.external_id%></th>
+      <th><%=time_ago_in_words(ride.created_at)%></th>
+      <th><%=ride.status.humanize%></th>
+      <th><%=driver_id(ride.driver_id)%></th>
+
+    </tr>
+  <% end %>
+
+</table>
+
+<style>
+  #admin {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  #admin td, #admin th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  #admin tr:nth-child(even){background-color: #f2f2f2;}
+
+  #admin tr:hover {background-color: #ddd;}
+
+  #admin th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #c8c8c8;
+    color: black;
+  }
+
+  .log-button {
+    background-color: black;
+    border-radius: 5px;
+    color: white;
+    padding: .5em;
+    text-decoration: none;
+    float: right;
+  }
+</style>
+<script>
+    $(document).on('click', '.refresh', function(e) {
+        e.preventDefault();
+        window.location.reload();
+    });
+</script>

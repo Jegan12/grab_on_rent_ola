@@ -1,0 +1,195 @@
+
+
+<a href="/log_out" class="log-button"> LogOut</a>
+<div id="wrapper">
+  <div class="container">
+
+    <h3 class="title">Welcome <%=@current_user.name%></h3>
+    <a href="/drivers/<%=@current_user.id%>" class="log-button refresh"> Refresh</a>
+
+    <div class="parent-block block">
+      <% @rides.each do |key,val| %>
+        <div class="common-block block">
+          <div class="title-block block">
+            <h3><%=key.humanize.upcase %></h3>
+          </div><!--TITLE-BLOCK-->
+
+          <div class="content-block block">
+
+            <% val.each do |ride| %>  <!--content loop starts-->
+
+              <div class="detail-block block">
+
+                <div class="detail-id block-50">
+                  <p>Req. Id : <%=ride.external_id%> </p>
+                </div><!--DETAIL-ID-->
+
+                <div class="detail-id block-50">
+                  <p>Cust. Id : <%=ride.customer.external_id%></p>
+                </div><!--DETAIL-ID-->
+
+                <div class="detail-content block">
+                  <p>Request: <%=time_ago_in_words(ride.created_at)%>  ago</p>
+                  <p class=<%=key + '-pick_up'%>>Picked Up: <%=time_ago_in_words(ride.pick_up_time) rescue ''%>  ago</p>
+                  <p class=<%=key + '-complete'%>>Complete:<%=time_ago_in_words(ride.drop_time) rescue ''%> </p>
+                  <div class="select-button block">
+                    <%= button_tag "SELECT" , class:"submit #{key}-submit", data_id:ride.id, data_url: confirm_ride_path%>
+                    <!--                <button>SELECT</button>-->
+                  </div><!--SELECT-BUTTON-->
+                </div><!--DETAIL-CONTENT-->
+
+              </div><!--DETAIL-BLOCK-->
+            <%end%>
+
+
+          </div><!--DETAIL-BLOCK-->
+
+        </div><!--CONTENT-BLOCK-->
+        <!--content loop ends-->
+      <%end%>
+
+
+    </div><!--COMMON-BLOCK-->
+  </div><!--parent-block-->
+
+
+</div><!--CONTAINER-->
+</div><!--WRAPPER-->
+
+<script>
+    $('.waiting-pick_up, .waiting-complete, .on_going-complete, .on_going-submit, .complete-submit').hide();
+    $(document).on('click', '.refresh', function(e) {
+        e.preventDefault();
+        window.location.reload();
+    });
+
+    $(document).on('click', '.submit', function(e){
+        e.preventDefault();
+        confirm('Please click OK to confirm the ride');
+        var id = $(this).attr('data_id');
+        $.ajax({
+            url:  $(this).attr('data_url'),
+            data: {id:id},
+            type: "POST",
+            datatype: 'JSON',
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            success: function (data) {
+                if (data.status){
+                    alert(data.message);
+                    window.location.reload();
+                }
+                else {
+                    alert(data.message);
+                    window.location.reload();
+                }
+            }
+        });
+    });
+</script>
+
+<style>
+  table{display:none;}
+  *{
+    box-sizing: border-box;
+    padding:0px;
+    margin:0px;
+  }
+
+  #wrapper{
+  }
+
+  .container{
+    max-width: 950px;
+    margin:15px auto;
+  }
+
+
+  .block,.block-50{
+    width:100%;
+    float:left;
+  }
+
+  .block-50 {
+    width: 50%;
+  }
+
+  p{
+    font-size:16px;
+  }
+
+  h3.title{
+    margin-bottom:20px;
+  }
+
+  .common-block{
+    width:33%;
+    border:1px solid #000;
+    background-color:#c8c8c8;
+  }
+
+  .common-block:nth-child(2),.common-block:nth-child(3){
+    border-left:none;
+  }
+
+  .title-block{
+    border-bottom:1px solid #000;
+    text-align:center;
+    min-height:60px;
+    padding-top:15px;
+  }
+
+  .content-block{
+    padding:5px 10px;
+  }
+
+  .content-block p{
+    font-size:14px;
+  }
+
+  .detail-block{
+    margin:5px 0px;
+    background-color:#FFF;
+    border-radius:5px;
+    padding:10px 5px 5px;
+    min-height:110px;
+  }
+
+  .detail-content p{
+    margin:15px 0px 10px;
+  }
+
+  .select-button button{
+    width:100%;
+    background-color:#c8c8c8;
+    padding:5px;
+    border-radius:5px;
+  }
+
+  table {
+    float: left;
+    width: 30%;
+    position: relative;
+  }
+  table ,tbody,td {
+    text-align: center;
+  }
+
+
+
+
+  .log-button {
+    background-color: black;
+    border-radius: 5px;
+    color: white;
+    padding: .5em;
+    text-decoration: none;
+    float: right;
+  }
+
+  .log-button:focus,
+  .log-button:hover {
+    background-color: FireBrick;
+    color: White;
+  }
+
+</style>

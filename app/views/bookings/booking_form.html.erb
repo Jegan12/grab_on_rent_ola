@@ -1,0 +1,82 @@
+
+<h1> Weclome Customer</h1>
+
+<%= form_with url: book_ride_path, id: 'customer_form', local: true do |form| %>
+  <div class="form-group">
+    <%= form.label  "Name:" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label  "Email:" %>
+    <%= form.text_field :email %>
+  </div>
+  <div class="form-group">
+    <%= form.label  "Phone Number:" %>
+    <%= form.text_field :phone_no %>
+  </div>
+  <div class="form-group">
+    <%= form.label  "Lat:" %>
+    <%=form.number_field :lat, within: 0..5%>
+  </div>
+  <div class="form-group">
+    <%= form.label  "Long:" %>
+    <%=form.number_field :long, within: 0..5%>
+  </div>
+
+  <div class="submit-form-group"> <%= form.submit 'Ride now', id: 'submit' %></div>
+<% end %>
+
+
+<script>
+
+    $(document).on('click', '#submit', function(e){
+        e.preventDefault();
+        $.ajax({
+            url: $('form#customer_form').attr('action'),
+            data: $('form#customer_form').serialize(),
+            type: "POST",
+            datatype: 'JSON',
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            success: function (data) {
+                if (data.status){
+                    alert(data.message);
+                    $("#customer_form").trigger("reset");
+                }
+                else {
+                    alert(data.message);
+                    $("#customer_form").trigger("reset");
+                }
+            }
+        });
+    });
+</script>
+<style>
+  .form-group label {
+    font-size: 15px;
+    width: 15%;
+    float: left;
+  }
+  .form-group {
+    loat: left;
+    width: 100%;
+    padding-bottom: 15px;
+    position: relative;
+  }
+
+  .submit-form-group {
+    float: left;
+    width: 45%;
+    text-align: center;
+    margin-top: 10px;
+
+  }
+
+  .submit-form-group input[type='submit'] {
+    float: none;
+    display: inline-block;
+
+  }
+
+
+</style>

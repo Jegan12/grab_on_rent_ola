@@ -1,0 +1,71 @@
+
+<h1><%=GrabOnRent.config.application.capitalize%> Login</h1>
+<%=flash[:error]%>
+
+<%= form_with url: login_path, local: true do |form| %>
+
+  <div class="form-group">
+    <%= form.label  "Email:" %>
+    <%= form.text_field :email %>
+  </div>
+  <div class="form-group">
+    <%= form.label  "Password:" %>
+    <%= form.password_field :password %>
+  </div>
+
+  <div class="submit-form-group"> <%= form.submit 'Login', id: 'submit' %></div>
+<% end %>
+
+
+<!--<script>-->
+
+<!--    $(document).on('click', '#submit', function(e){-->
+<!--        e.preventDefault();-->
+<!--        $.ajax({-->
+<!--            url: $('form').attr('action'),-->
+<!--            data: $('form').serialize(),-->
+<!--            type: "POST",-->
+<!--            datatype: 'JSON',-->
+<!--            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},-->
+<!--            success: function (data) {-->
+<!--                if (data.status){-->
+<!--                    alert(data.message);-->
+<!--                    window.location.reload();-->
+<!--                }-->
+<!--                else {-->
+<!--                    alert(data.message);-->
+<!--                    window.location.reload();-->
+<!--                }-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+<style>
+  .form-group label {
+    font-size: 15px;
+    width: 15%;
+    float: left;
+  }
+  .form-group {
+    loat: left;
+    width: 100%;
+    padding-bottom: 15px;
+    position: relative;
+  }
+
+  .submit-form-group {
+    float: left;
+    width: 45%;
+    text-align: center;
+    margin-top: 10px;
+
+  }
+
+  .submit-form-group input[type='submit'] {
+    float: none;
+    display: inline-block;
+
+  }
+
+
+</style>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: MyString
+  driver_id: MyString
+  customer_id: MyString
+  pick_up_time: MyString
+  drop_time: MyString
+  lat: 1
+  long: 1
+
+two:
+  status: MyString
+  driver_id: MyString
+  customer_id: MyString
+  pick_up_time: MyString
+  drop_time: MyString
+  lat: 1
+  long: 1
