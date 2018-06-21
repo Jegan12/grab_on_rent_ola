@@ -11,6 +11,8 @@ application up and running.
 
 * In env change APPLICATION  as any one of [ADMIN,CUSTOMER,DRIVER].
 
+* run bundle exec sidekiq 3 to start the sidekiq
+
 * Run the app 3 times with APPLICATION env as ADMIN , CUSTOMER, DRIVER with same database and redis conf
 
 

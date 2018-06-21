@@ -1,13 +1,14 @@
-class ConfirmRideWorker
-  include Sidekiq::Worker
+  class ConfirmRideWorker
+    include Sidekiq::Worker
 
-  def perform(id)
+    def perform(id)
+      Ride.find(id).update_attributes(update_params)
+    end
 
-    @a=Ride.find(id)
-    @a.drop_time=Time.now
-    @a.status='complete'
-    @a.save
+    def update_params
+      {
+          drop_time: Time.now,
+          status: 'complete'
+      }
+    end
   end
-
-
-end
