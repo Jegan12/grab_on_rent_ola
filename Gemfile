@@ -10,7 +10,7 @@ gem 'dotenv-rails'
 gem 'dry-configurable'
 
 gem 'rails', '~> 5.1.6'
-gem 'sqlite3'
+#gem 'sqlite3'
 gem 'pg'
 gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
