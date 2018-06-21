@@ -11,6 +11,6 @@ application up and running.
 
 * In env change APPLICATION  as any one of [ADMIN,CUSTOMER,DRIVER].
 
-* Run the app 3 times with APPLICATION env as ADMIN , CUSTOMER, DRIVER with same database adn redis conf
+* Run the app 3 times with APPLICATION env as ADMIN , CUSTOMER, DRIVER with same database and redis conf
 
 
